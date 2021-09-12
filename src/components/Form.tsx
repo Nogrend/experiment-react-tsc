@@ -1,49 +1,48 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 
 export default function Form() {
-  const [fullName, setFullName] = useState({
-    fName: "",
-    lName: "",
-  });
+    const [fullName, setFullName] = useState({
+        firstName: "",
+        lastName: "",
+    });
 
-  function handleChange(event: any) {
-    // added ":any"
-    const { value, name } = event.target;
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+        const {value, name} = event.target;
+        
+        setFullName((prevValue) => {
+            if (name === "firstName") {
+                return {
+                    firstName: value,
+                    lastName: prevValue.lastName
+                }
+            } else {
+                return {
+                    firstName: prevValue.firstName,
+                    lastName: value
+                }
+            }
+        })
+    }
 
-    //     setFullName(prevValue => { // this line gives an error, why?
-    //       if (name === "fName") {
-    //         return {
-    //           fName : value,
-    //           lName : prevValue.lName
-    //         }
-    //       } else if (name === "lName") {
-    //         return {
-    //           fName : prevValue.fName,
-    //           lName : value
-    //         }
-    //       }
-    //     })
-  }
-
-  return (
-    <div className="container">
-      <h1>
-        Hello {fullName.fName} {fullName.lName}
-      </h1>
-      <form>
-        <input
-          name="fName"
-          placeholder="First Name"
-          onChange={handleChange}
-          value={fullName.fName}
-        />
-        <input
-          name="lName"
-          placeholder="Last Name"
-          onChange={handleChange}
-          value={fullName.lName}
-        />
-      </form>
-    </div>
-  );
+    return (
+        <div className="container">
+            <h1>
+                Hello {fullName.firstName} {fullName.lastName}
+            </h1>
+            <form>
+                <input
+                    name="firstName"
+                    placeholder="First Name"
+                    onChange={handleChange}
+                    value={fullName.firstName}
+                />
+                <input
+                    name="lastName"
+                    placeholder="Last Name"
+                    onChange={handleChange}
+                    value={fullName.lastName}
+                />
+            </form>
+        </div>
+    );
 }
