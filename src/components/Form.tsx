@@ -8,7 +8,7 @@ export default function Form() {
 
     function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const {value, name} = event.target;
-        
+
         setFullName((prevValue) => {
             if (name === "firstName") {
                 return {
